@@ -15,19 +15,33 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <div class="logo">
       <img
         src="https://beta.adalab.es/f-online-pokemon-veronicabautista/static/media/logo.799db9c7.png"
+        height="100%"
         alt="logo"
       />
     </div>
+
+    <div class="search-container">
+      <input id="name-input" type="text" placeholder="Name / id" />
+
+      <div id="search-btn" class="ball-container">
+        <div class="upper-half-ball"></div>
+        <div class="bottom-half-ball"></div>
+        <div class="center-ball"></div>
+        <div class="center-line"></div>
+      </div>
+    </div>
+
     <div id="pokedex">
       <!-- Left Panel -->
       <div id="left-panel">
         <!-- Top lights -->
         <div class="left-top-container">
-          <svg height="100%" width="100%" class="left-svg">
+          <svg height="100" width="225" class="left-svg">
             <polyline
               points="0,75 70,75 90,38 224,38"
               style="fill: none; stroke: black; stroke-width: 3"
@@ -59,7 +73,7 @@
               <div class="mini-light red"></div>
               <div class="mini-light red"></div>
             </div>
-            <div class="main-screen"></div>
+            <div id="main-screen"></div>
             <div class="bottom-screen-lights">
               <div class="small-light red">
                 <div class="dot light-red"></div>
@@ -87,7 +101,9 @@
               <div>.</div>
               <div>.</div>
             </div>
-            <div class="green-screen"></div>
+            <div class="green-screen">
+              <span id="name-screen">bulbasaur</span>
+            </div>
             <div class="right-nav-container">
               <div class="nav-button">
                 <div class="nav-center-circle"></div>
@@ -130,9 +146,8 @@
         </div>
         <!-- Top screen -->
         <div class="top-screen-container">
-          <div class="right-panel-screen">
-            When it retracts its long neck into its shell, it squirts out water
-            with vigorous force.
+          <div id="about-screen" class="right-panel-screen">
+            Height: 70cm Weight: 6.9kg
           </div>
         </div>
         <!-- Blue Buttons -->
@@ -178,10 +193,11 @@
         </div>
         <!-- Bottom screens -->
         <div class="bottom-screens-container">
-          <div class="right-panel-screen">Water</div>
-          <div class="right-panel-screen">Tiny Turtle</div>
+          <div id="type-screen" class="right-panel-screen">grass</div>
+          <div id="id-screen" class="right-panel-screen">#1</div>
         </div>
       </div>
     </div>
+    <script src="main.js"></script>
   </body>
 </html>
