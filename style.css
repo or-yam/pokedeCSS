@@ -635,3 +635,34 @@ input {
   width: 64px;
   height: 25px;
 }
+
+.mention {
+  margin-top: 10px;
+  width: 150px;
+  display: grid;
+  text-align: center;
+  font-size: x-large;
+}
+.links {
+  display: flex;
+  justify-content: space-between;
+}
+.link-logo {
+  width: 25px;
+  height: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.codepen {
+  background-image: url(https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png);
+}
+.github {
+  background-image: url(https://www.flaticon.com/svg/static/icons/svg/25/25231.svg);
+}
+.dev {
+  background-image: url(https://raw.githubusercontent.com/gist/benhalpern/eff81b17359acafd17849146549b9291/raw/6de3cc24798bd3b133d4d89a1d87004c369eac46/dev-icon.svg);
+}
+.linkedin {
+  background-image: url(https://www.flaticon.com/svg/static/icons/svg/25/25320.svg);
+}
