@@ -6,10 +6,23 @@ const aboutScreen = document.getElementById('about-screen'); // about-text scree
 const typeScreen = document.getElementById('type-screen'); // type screen
 const idScreen = document.getElementById('id-screen'); // spices screen
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered"))
+      .catch(err => console.log("service worker not registered", err))
+  })
+};
+
 const getPokemonData = (pokemon) => {
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
+      if(!data.id){
+        return
+      }
       let id = ('00' + data.id).slice(-3);
       imageScreen.style.backgroundImage = `url('https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png')`;
       nameScreen.innerHTML = data.name;
