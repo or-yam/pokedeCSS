@@ -38,26 +38,72 @@
   padding: 0;
 }
 
+html {
+  background-color: var(--secondary-bg-color);
+}
+
 body {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100dvh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   gap: 22px;
+  overflow-x: clip;
   background-color: var(--secondary-bg-color);
+}
+
+button {
+  font: inherit;
+  padding: 0;
+}
+
+.visually-hidden:where(:not(:focus, :active)) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 10;
+  inset-block-start: 0.5rem;
+  inset-inline-start: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  background: black;
+  border-radius: 0.25rem;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.page-content {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 22px;
 }
 
 .logo {
   aspect-ratio: 600/221;
-  justify-self: start;
   width: 50%;
   max-width: 400px;
   min-width: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: auto;
+}
+
+search {
+  width: 100%;
 }
 
 .search-container {
@@ -72,14 +118,21 @@ body {
 
 /* poke-ball */
 .ball-container {
+  appearance: none;
+  flex: 0 0 auto;
   overflow: hidden;
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border: 2px solid black;
   border-radius: 50%;
   position: relative;
   animation: shake 1.5s ease-in infinite;
   animation-play-state: paused;
+  background: transparent;
+}
+
+.ball-container > span {
+  display: block;
 }
 
 @keyframes shake {
@@ -106,7 +159,7 @@ body {
   }
 }
 
-.ball-container:hover {
+.ball-container:is(:hover, :focus-visible) {
   cursor: pointer;
   animation-play-state: running;
 }
@@ -143,23 +196,34 @@ body {
   width: 100%;
 }
 
-input {
+.search-container input {
   text-align: center;
-  height: 40px;
+  height: 44px;
+  min-width: 0;
+  width: 149px;
   border-radius: 4px;
   margin-right: 10px;
 }
 /* poke-dex */
+.pokedex-container {
+  container: pokedex / inline-size;
+  inline-size: min(calc(100% - 2rem), 456px);
+}
+
 #pokedex {
-  height: 342px;
-  width: calc(228px * 2);
+  height: 684px;
+  width: 228px;
+  margin-inline: auto;
   display: flex;
+  flex-direction: column;
   border-radius: 10px;
 }
 
-@media only screen and (max-width: 600px) {
+@container pokedex (min-width: 456px) {
   #pokedex {
-    width: 90%;
+    width: 456px;
+    height: 342px;
+    flex-direction: row;
   }
 }
 
@@ -168,7 +232,7 @@ input {
   background-color: var(--main-bg-color);
   box-sizing: border-box;
   height: 100%;
-  width: 50%;
+  width: 228px;
   display: grid;
   grid-template-rows: 23% 50% 27%;
   border: solid black 3px;
@@ -188,6 +252,12 @@ input {
 .left-svg {
   position: absolute;
   z-index: +5;
+}
+
+.left-svg polyline {
+  fill: none;
+  stroke: black;
+  stroke-width: 3;
 }
 
 .big-light-boarder {
@@ -279,16 +349,14 @@ input {
 }
 
 #main-screen {
+  display: block;
   height: 100%;
   width: 80%;
   justify-self: center;
   background-color: var(--main-screen-bg-color);
   border: solid black 2px;
   border-radius: 5%;
-  background-image: url(https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  object-fit: contain;
 }
 
 .bottom-screen-lights {
@@ -371,7 +439,7 @@ input {
 
 .upper-buttons-container {
   display: flex;
-  align-items: top;
+  align-items: flex-start;
   justify-content: start;
 }
 
@@ -432,27 +500,63 @@ input {
   border: 2px solid black;
 
   .left-nav-button {
+    appearance: none;
     position: absolute;
-    left: -1px;
-    width: 20px;
-    height: 12px;
+    z-index: 3;
+    top: 50%;
+    left: -18px;
+    width: 44px;
+    height: 44px;
+    transform: translateY(-50%);
     border-radius: 5px 0 0 5px;
+    border: 0;
     background-color: transparent;
   }
-  .left-nav-button:active {
+
+  .left-nav-button:active::after {
     background-color: #393838;
   }
 
   .right-nav-button {
+    appearance: none;
     position: absolute;
-    right: -1px;
-    width: 20px;
-    height: 12px;
+    z-index: 3;
+    top: 50%;
+    right: -18px;
+    width: 44px;
+    height: 44px;
+    transform: translateY(-50%);
     border-radius: 0 5px 5px 0;
+    border: 0;
     background-color: transparent;
   }
-  .right-nav-button:active {
+
+  .right-nav-button:active::after {
     background-color: #393838;
+  }
+
+  .left-nav-button::after,
+  .right-nav-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 12px;
+    transform: translateY(-50%);
+    border-radius: inherit;
+  }
+
+  .left-nav-button::after {
+    right: 8px;
+  }
+
+  .right-nav-button::after {
+    left: 7px;
+  }
+
+  :is(.left-nav-button, .right-nav-button):focus-visible {
+    outline: 3px solid white;
+    outline-offset: 2px;
   }
 }
 
@@ -513,11 +617,22 @@ input {
   box-sizing: border-box;
   position: relative;
   height: 100%;
-  width: 50%;
+  width: 228px;
   display: grid;
   grid-template-rows: 24% repeat(4, 19%);
   border-bottom: solid black 3px;
   border-bottom-right-radius: 10px;
+}
+
+.right-panel-fill {
+  fill: var(--secondary-bg-color);
+  stroke: none;
+}
+
+.right-panel-outline {
+  fill: none;
+  stroke: black;
+  stroke-width: 3;
 }
 #right-panel::before {
   content: '';
@@ -673,8 +788,20 @@ input {
 .links {
   display: flex;
   justify-content: space-between;
+  list-style: none;
+}
+.links a {
+  display: block;
+  border-radius: 3px;
+}
+.links a:focus-visible,
+.ball-container:focus-visible,
+.search-container input:focus-visible {
+  outline: 3px solid #265dab;
+  outline-offset: 3px;
 }
 .link-logo {
+  display: block;
   width: 25px;
   height: 25px;
   background-position: center;
@@ -692,4 +819,10 @@ input {
 }
 .linkedin {
   background-image: url(https://brand.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ball-container {
+    animation-duration: 6s;
+  }
 }

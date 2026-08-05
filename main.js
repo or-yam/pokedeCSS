@@ -1,10 +1,11 @@
-const searchBtn = document.getElementById('search-btn');
+const searchForm = document.getElementById('pokemon-search');
 const inputField = document.getElementById('name-input');
 const nameScreen = document.getElementById('name-screen');
 const imageScreen = document.getElementById('main-screen');
 const aboutScreen = document.getElementById('about-screen');
 const typeScreen = document.getElementById('type-screen');
 const idScreen = document.getElementById('id-screen');
+const resultStatus = document.getElementById('result-status');
 const rightButton = document.querySelector('.right-nav-button');
 const leftButton = document.querySelector('.left-nav-button');
 
@@ -31,17 +32,21 @@ const getPokemonData = (pokemon) => {
       }
       current = data.id;
       let id = ('00' + data.id).slice(-3);
-      imageScreen.style.backgroundImage = `url('https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png')`;
-      nameScreen.innerHTML = data.name;
-      typeScreen.innerHTML = data.types[0].type.name;
-      idScreen.innerHTML = `#${data.id}`;
-      aboutScreen.innerHTML = `Height: ${data.height * 10}cm Weight: ${data.weight / 10}kg`;
+      imageScreen.src = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`;
+      imageScreen.alt = data.name;
+      nameScreen.textContent = data.name;
+      typeScreen.textContent = data.types[0].type.name;
+      idScreen.textContent = `#${data.id}`;
+      aboutScreen.textContent = `Height: ${data.height * 10}cm Weight: ${data.weight / 10}kg`;
+      resultStatus.textContent = `${data.name}, Pokédex number ${data.id}`;
       inputField.value = '';
     });
 };
 
-inputField.addEventListener('keydown', (event) => event.key === 'Enter' && searchBtn.click());
-searchBtn.addEventListener('click', () => getPokemonData(inputField.value));
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  getPokemonData(inputField.value);
+});
 rightButton.addEventListener('click', () => {
   getPokemonData(current + 1);
 });
@@ -52,6 +57,10 @@ leftButton.addEventListener('click', () => {
   getPokemonData(current - 1);
 });
 document.addEventListener('keydown', (event) => {
+  if (event.target.matches('input, textarea, [contenteditable]')) {
+    return;
+  }
+
   if (event.key === 'ArrowRight') {
     rightButton.click();
   } else if (event.key === 'ArrowLeft') {

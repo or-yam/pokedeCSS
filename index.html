@@ -1,54 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedecss</title>
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" type="image/gif/jpg" href="./ballicon.webp" />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/webp" href="./ballicon.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
-    <div class="mention">
-      <div>or-yam</div>
-      <div class="links">
-        <a href="https://codepen.io/oryamne" target="_blank">
-          <div class="link-logo codepen"></div>
-        </a>
-        <a href="https://github.com/or-yam" target="_blank">
-          <div class="link-logo github"></div>
-        </a>
-        <a href="https://dev.to/oryam" target="_blank">
-          <div class="link-logo dev"></div>
-        </a>
-        <a href="https://www.linkedin.com/in/oryamne/" target="_blank">
-          <div class="link-logo linkedin"></div>
-        </a>
-      </div>
-    </div>
+    <a class="skip-link" href="#main-content">Skip to Pokédex</a>
 
-    <img class="logo" src="logo.png" alt="logo" />
+    <header class="mention">
+      <p>or-yam</p>
+      <nav aria-label="Author profiles">
+        <ul class="links">
+          <li>
+            <a href="https://codepen.io/oryamne" target="_blank" rel="noopener noreferrer" aria-label="CodePen">
+              <span class="link-logo codepen" aria-hidden="true"></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/or-yam" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <span class="link-logo github" aria-hidden="true"></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://dev.to/oryam" target="_blank" rel="noopener noreferrer" aria-label="DEV Community">
+              <span class="link-logo dev" aria-hidden="true"></span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/oryamne/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <span class="link-logo linkedin" aria-hidden="true"></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-    <div class="search-container">
-      <input id="name-input" type="text" placeholder="Name / id" />
+    <main id="main-content" class="page-content" tabindex="-1">
+      <h1 class="visually-hidden">CSS Pokédex</h1>
+      <img class="logo" src="logo.png" alt="Pokémon" width="1200" height="442">
 
-      <div id="search-btn" class="ball-container">
-        <div class="upper-half-ball"></div>
-        <div class="bottom-half-ball"></div>
-        <div class="center-ball"></div>
-        <div class="center-line"></div>
-      </div>
-    </div>
+      <search>
+        <form id="pokemon-search" class="search-container">
+          <label class="visually-hidden" for="name-input">Pokémon name or Pokédex number</label>
+          <input id="name-input" name="pokemon" type="search" placeholder="Name / id" autocomplete="off">
 
-    <div id="pokedex">
+          <button id="search-btn" class="ball-container" type="submit" aria-label="Search Pokémon">
+            <span class="upper-half-ball" aria-hidden="true"></span>
+            <span class="bottom-half-ball" aria-hidden="true"></span>
+            <span class="center-ball" aria-hidden="true"></span>
+            <span class="center-line" aria-hidden="true"></span>
+          </button>
+        </form>
+      </search>
+
+      <p id="result-status" class="visually-hidden" role="status" aria-live="polite"></p>
+
+      <div class="pokedex-container">
+        <section id="pokedex" aria-labelledby="pokedex-title">
+          <h2 id="pokedex-title" class="visually-hidden">Pokédex entry</h2>
       <!-- Left Panel -->
       <div id="left-panel">
         <!-- Top lights -->
-        <div class="left-top-container">
-          <svg height="100" width="225" class="left-svg">
-            <polyline points="0,75 70,75 90,38 224,38" style="fill: none; stroke: black; stroke-width: 3" />
+        <div class="left-top-container" aria-hidden="true">
+          <svg height="100" width="225" viewBox="0 0 225 100" class="left-svg" focusable="false">
+            <polyline points="0,75 70,75 90,38 224,38" />
           </svg>
           <div class="lights-container">
             <div class="big-light-boarder">
@@ -72,12 +98,18 @@
         <!-- Center Screen -->
         <div class="screen-container">
           <div class="screen">
-            <div class="top-screen-lights">
+            <div class="top-screen-lights" aria-hidden="true">
               <div class="mini-light red"></div>
               <div class="mini-light red"></div>
             </div>
-            <div id="main-screen"></div>
-            <div class="bottom-screen-lights">
+            <img
+              id="main-screen"
+              src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
+              alt="Bulbasaur"
+              width="475"
+              height="475"
+            >
+            <div class="bottom-screen-lights" aria-hidden="true">
               <div class="small-light red">
                 <div class="dot light-red"></div>
               </div>
@@ -92,7 +124,7 @@
         </div>
         <!-- Bottom Buttons -->
         <div class="buttons-container">
-          <div class="upper-buttons-container">
+          <div class="upper-buttons-container" aria-hidden="true">
             <div class="big-button"></div>
             <div class="long-buttons-container">
               <div class="long-button red"></div>
@@ -100,7 +132,7 @@
             </div>
           </div>
           <div class="nav-buttons-container">
-            <div class="dots-container">
+            <div class="dots-container" aria-hidden="true">
               <div>.</div>
               <div>.</div>
             </div>
@@ -112,13 +144,13 @@
                 <div class="nav-center-circle"></div>
                 <div class="nav-button-vertical"></div>
                 <div class="nav-button-horizontal">
-                  <div class="right-nav-button"></div>
-                  <div class="left-nav-button"></div>
+                  <button class="left-nav-button" type="button" aria-label="Previous Pokémon"></button>
+                  <button class="right-nav-button" type="button" aria-label="Next Pokémon"></button>
                   <div class="border-top"></div>
                   <div class="border-bottom"></div>
                 </div>
               </div>
-              <div class="bottom-right-nav-container">
+              <div class="bottom-right-nav-container" aria-hidden="true">
                 <div class="small-light red">
                   <div class="dot light-red"></div>
                 </div>
@@ -137,21 +169,21 @@
       <!-- Right-panel -->
       <div id="right-panel">
         <!-- Blank container -->
-        <div class="empty-container">
-          <svg height="100%" width="100%">
+        <div class="empty-container" aria-hidden="true">
+          <svg height="100%" width="100%" viewBox="0 0 228 82" preserveAspectRatio="none" focusable="false">
             <polyline
               points="0,0 0,40 138,40 158,75 250,75 250,0 0,0"
-              style="fill: #f2f2f2; stroke: none; stroke-width: 3"
+              class="right-panel-fill"
             />
-            <polyline points="0,40 138,40 158,75 250,75" style="fill: none; stroke: black; stroke-width: 3" />
+            <polyline points="0,40 138,40 158,75 250,75" class="right-panel-outline" />
           </svg>
         </div>
         <!-- Top screen -->
         <div class="top-screen-container">
-          <div id="about-screen" class="right-panel-screen">Height: 70cm Weight: 6.9kg</div>
+          <p id="about-screen" class="right-panel-screen">Height: 70cm Weight: 6.9kg</p>
         </div>
         <!-- Blue Buttons -->
-        <div class="square-buttons-container">
+        <div class="square-buttons-container" aria-hidden="true">
           <div class="blue-squares-container">
             <div class="blue-square"></div>
             <div class="blue-square"></div>
@@ -166,7 +198,7 @@
           </div>
         </div>
         <!-- Center Buttons -->
-        <div class="center-buttons-container">
+        <div class="center-buttons-container" aria-hidden="true">
           <div class="center-left-container">
             <div class="small-reds-container">
               <div class="small-light red">
@@ -193,11 +225,15 @@
         </div>
         <!-- Bottom screens -->
         <div class="bottom-screens-container">
-          <div id="type-screen" class="right-panel-screen">grass</div>
-          <div id="id-screen" class="right-panel-screen">#1</div>
+          <p class="right-panel-screen"><span class="visually-hidden">Type: </span><span id="type-screen">grass</span></p>
+          <p class="right-panel-screen">
+            <span class="visually-hidden">Pokédex number </span><span id="id-screen">#1</span>
+          </p>
         </div>
       </div>
-    </div>
+        </section>
+      </div>
+    </main>
     <script src="main.js"></script>
   </body>
 </html>
